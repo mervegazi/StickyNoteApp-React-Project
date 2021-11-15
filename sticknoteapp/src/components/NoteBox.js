@@ -26,7 +26,7 @@ function NoteBox() {
     return(
      <div className="note-box" style={{position:'absolute', top: boxPosition.y, left: boxPosition.x}}>
         <select>
-            <option value=""></option>
+            <option value={type.name}>{type.text} ></option>
         </select>
      </div>
     )
