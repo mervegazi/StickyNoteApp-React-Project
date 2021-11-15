@@ -1,0 +1,29 @@
+.screen{
+  position: fixed;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.screen.editable {
+  cursor: crosshair;
+}
+
+.leave-comment-text{
+  border-radius: 3px;
+  background:rgb(0,0,0,.7);
+  color:#fff;
+  padding: 5px, 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+
+}
+.note{
+  background: var(--color);
+  padding: 5px, 10px;
+  border-radius: 4px;
+  color: #fff;
+  transform: translateX(-50%);
+}
