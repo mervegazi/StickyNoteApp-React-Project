@@ -27,3 +27,11 @@
   color: #fff;
   transform: translateX(-50%);
 }
+.note-box{
+
+padding: 20px;
+background: #fff;
+box-shadow: 0 0 5px 0 rgb(0,0,0,.4);
+z-index: 4;
+transform:translateX(-50%) translateY(40px); /* tıkladığımda box farenin konumunun tam ortasında açılsın.*/
+}

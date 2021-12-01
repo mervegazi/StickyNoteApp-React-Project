@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import MainContext from '../MainContext';
 
 function NoteBox() {
-    const {boxPosition}= useContext(MainContext)
+    const {boxPosition, setMode}= useContext(MainContext) //maincontexteki datadan boxpositionu çektik
 
     const types= [
         {
@@ -24,9 +24,12 @@ function NoteBox() {
     ]
 
     return(
-     <div className="note-box" style={{position:'absolute', top: boxPosition.y, left: boxPosition.x}}>
+     <div onMouseEnter={() => setMode(false)} onMouseLeave={()=>setMode(true)} className="note-box" 
+     style={{position:'absolute', top: boxPosition.y, left: boxPosition.x}}>
         <select>
-            <option value={type.name}>{type.text} ></option>
+            {types.map(type =>(
+                <option value={type.name}>{type.text}</option>
+            ))}          
         </select>
      </div>
     )

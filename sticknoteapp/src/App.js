@@ -6,8 +6,8 @@ import LeaveCommentText from './components/LeaveCommentText';
 import NoteBox from './components/NoteBox';
 function App() {
 
-  const screen=useRef(null)
-  const [mode, setMode]= useState(false)
+  const screen=useRef(null) //dom işlemi yaptığımız için useref kullanarak bir değişken oluşturduk odaklanmasını da useEffect ile yaptık.
+  const [mode, setMode]= useState(false) //yorum modunun açık kapalı bilgisini statete tutuyoruz.
   const [notes, setNotes,]=useState([{
 
     id:"1", 
@@ -23,45 +23,48 @@ function App() {
     x: 0,
     y: 0
   })
-  const [boxVisible,setBoxVisible] = useState(false)
-  const [boxPosition, setBoxPosition] = useState({
+  const [boxVisible,setBoxVisible] = useState(false) //yorum kutusu açılması için oluşturulan state
+  const [boxPosition, setBoxPosition] = useState({ //notun kalacağı noktayı ayarlamak için pozisyonu bir statete tutuyoruz.
     x: 0,
     y: 0
 
   })
 
 
-  useEffect(()=>{
+  useEffect(()=>{ //ilk açılışta c ye basıldığının kontrolünü sağlayan divin içine odaklansın ve kontrol etsin.
     screen.current.focus()
   })
 
   const handleKeyUp=(e) => { //not yazma modunun açık olup olmadığını kontrolü
     if(e.key==='c'){
       setMode(!mode)
+      setBoxVisible(false) 
       
     }
   }
   const handleMauseMove= (e) => { //faremin konumunu state atadım 
-    
-    if(mode) {
+    if(mode){   
     setPosition({
       x: e.pageX,
       y: e.pageY
     })
   }
-  }
-
-  const handleClick=(e) => {
+}
+  const handleClick=(e) => { //tıklanan yere not işareti eklemek için pozisyonları aldık.
+    
+    if(mode){
     setBoxPosition({
       x: position.x,
       y: position.y
     })
-    setBoxVisible(true);
+    setBoxVisible(true); //tıklayınca yorum kutusu açılsın
   }
+}
 
 const data={
   position,
-  boxPosition
+  boxPosition,
+  setMode
 }
 
   return (
