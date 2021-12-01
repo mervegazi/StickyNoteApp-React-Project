@@ -64,7 +64,8 @@ function App() {
 const data={
   position,
   boxPosition,
-  setMode
+  setMode,
+  notes
 }
 
   return (
@@ -74,8 +75,6 @@ const data={
     <img style={{Width:'600px', height:'800px' }} src="https://peltiertech.com/images/2016-11/BlankPowerPoint.png"/>
      
      {mode &&<LeaveCommentText/>}
-
-      {mode && (<div>Yorum modu aktif!</div>)}
   
       {notes && notes.map(note => <Note {...note}/>)}
       

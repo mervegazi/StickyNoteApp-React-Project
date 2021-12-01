@@ -2,8 +2,7 @@ import { useContext, useState } from "react";
 import MainContext from '../MainContext';
 
 function NoteBox() {
-    const {boxPosition, setMode}= useContext(MainContext) //maincontexteki datadan boxpositionu çektik
-
+  
     const types= [
         {
             name: "comment",
@@ -22,15 +21,22 @@ function NoteBox() {
             text: "Not"
         }
     ]
+    const {boxPosition, setMode, notes}= useContext(MainContext) //maincontexteki datadan boxpositionu çektik
+    const [color, setColor]= useState(types[0].color)
+    const changeColor = (e) => { //seçime göre not noktasının renk değiştirilmesi yapıldı.
+        setColor(e.target.value)
+    }
 
     return(
      <div onMouseEnter={() => setMode(false)} onMouseLeave={()=>setMode(true)} className="note-box" 
-     style={{position:'absolute', top: boxPosition.y, left: boxPosition.x}}>
-        <select>
+     style={{'--color':color, position:'absolute', top: boxPosition.y, left: boxPosition.x}}>
+         <span className="note-box-number">{notes.length + 1 }</span>
+        <select onChange={changeColor}>           
             {types.map(type =>(
-                <option value={type.name}>{type.text}</option>
+                <option value={type.color}>{type.text}</option>
             ))}          
         </select>
+        <textarea cols="30" rows="5" />
      </div>
     )
     
