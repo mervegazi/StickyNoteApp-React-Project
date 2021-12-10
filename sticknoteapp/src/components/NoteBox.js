@@ -21,11 +21,31 @@ function NoteBox() {
             text: "Not"
         }
     ]
-    const {boxPosition, setMode, notes}= useContext(MainContext) //maincontexteki datadan boxpositionu çektik
-    const [color, setColor]= useState(types[0].color)
+    const {boxPosition, setBoxVisible, setMode, notes, setNotes}= useContext(MainContext) //maincontexteki datadan boxpositionu çektik
+    const [color, setColor]= useState(types[0].color) //not renklerini statete tutuyoruz.
+    const [note, setNote]=useState('') //notun girilip girilmediğini tutuyor ilk başta boş geliyor sonra textarea ya notlar girdikçe nu notları state te tutuyoruz.
+//not girildikçe ekle butonu aktif oluyor bunun kontrolünü de buton özelliklerinde ve css olarak verdik.
+
+
     const changeColor = (e) => { //seçime göre not noktasının renk değiştirilmesi yapıldı.
         setColor(e.target.value)
     }
+
+    const addNote=()=> {    //notu ekle butonuna bastığımızda çalışacak method
+        const currentNote={
+                note, 
+                number:notes.length + 1,
+                color,
+                position:{
+                  x:boxPosition.x,
+                  y:boxPosition.y,
+                }   
+        }
+        setNotes([...notes, currentNote]) //notların tamamı + benim notumu stateye kaydettik.
+        setBoxVisible(false)
+        setMode(true) //tekrar yeni bir şey ekleyebilelim bir not yazıp kaydettikten sonra not yazma modundan çıkmaması için trueladık.
+
+    } 
 
     return(
      <div onMouseEnter={() => setMode(false)} onMouseLeave={()=>setMode(true)} className="note-box" 
@@ -36,7 +56,8 @@ function NoteBox() {
                 <option value={type.color}>{type.text}</option>
             ))}          
         </select>
-        <textarea cols="30" rows="5" />
+        <textarea onChange={(e) =>setNote(e.target.value)} cols="30" rows="5" />
+        <button onClick={addNote} disabled={!note}>Ekle</button>
      </div>
     )
     

@@ -8,17 +8,7 @@ function App() {
 
   const screen=useRef(null) //dom işlemi yaptığımız için useref kullanarak bir değişken oluşturduk odaklanmasını da useEffect ile yaptık.
   const [mode, setMode]= useState(false) //yorum modunun açık kapalı bilgisini statete tutuyoruz.
-  const [notes, setNotes,]=useState([{
-
-    id:"1", 
-    note: "bu bir test nottur xd", 
-    color: "green",
-    position:{
-      x:350,
-      y:300
-    }
-
-  }])
+  const [notes, setNotes,]=useState(localStorage.notes && JSON.parse(localStorage.notes) || [] ) //notları json ile tuttuk sayfayı yenilediğimizde kaybolmayacaklar.
   const [position, setPosition]= useState({
     x: 0,
     y: 0
@@ -34,6 +24,10 @@ function App() {
   useEffect(()=>{ //ilk açılışta c ye basıldığının kontrolünü sağlayan divin içine odaklansın ve kontrol etsin.
     screen.current.focus()
   })
+
+  useEffect(()=>{
+   localStorage.setItem('notes', JSON.stringify(notes)) 
+  },[notes])
 
   const handleKeyUp=(e) => { //not yazma modunun açık olup olmadığını kontrolü
     if(e.key==='c'){
@@ -65,6 +59,8 @@ const data={
   position,
   boxPosition,
   setMode,
+  setNotes,
+  setBoxVisible, 
   notes
 }
 
@@ -72,7 +68,7 @@ const data={
     <MainContext.Provider value={data}> {/*her yerden erişebilmek için provider içine aldım context olarak ulaşacağız. */}
     <div ref={screen} tabIndex={0} onClick={handleClick} onMouseMove={handleMauseMove} onKeyUp={handleKeyUp} className={`screen${mode && 'editable'}`}>
      
-    <img style={{Width:'600px', height:'800px' }} src="https://peltiertech.com/images/2016-11/BlankPowerPoint.png"/>
+    <img style={{Width:'600px', height:'800px', opacity:'.7'}} src="https://peltiertech.com/images/2016-11/BlankPowerPoint.png"/>
      
      {mode &&<LeaveCommentText/>}
   

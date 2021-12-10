@@ -20,15 +20,20 @@
   font-size: 14px;
 
 }
-.note{
+.note-container{
   background: var(--color);
+  margin-top: 40px;
+  width: 300px;
+  margin-left: -150px;
+}
+
+.note-container .note{
   padding: 5px, 10px;
   border-radius: 4px;
   color: #fff;
-  transform: translateX(-50%);
 }
-.note-box{
 
+.note-box{
 padding: 20px;
 background: #fff;
 box-shadow: 0 0 5px 0 rgb(0,0,0,.4);
@@ -36,6 +41,7 @@ z-index: 4;
 width: 300px;
 transform:translateX(-50%) translateY(40px); /* tıkladığımda box farenin konumunun tam ortasında açılsın.*/
 }
+
 .note-box select {
   appearance: none;
   border-radius: 3px;
@@ -57,6 +63,7 @@ transform:translateX(-50%) translateY(40px); /* tıkladığımda box farenin kon
   margin-top: 10px;
   border-radius: 3px;
   resize: none;
+  font-family: Arial, sans-serif;
 }
 
 .note-box textarea:focus{
@@ -75,5 +82,28 @@ border-radius: 50%;
 background: var(--color);
 display: flex;
 align-items: center;
+opacity: .7;
 justify-content: center;
 }
+.note-box-number:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.note-box button{
+  width: 100%;
+  height: 40px;
+  border-radius: 3px; 
+  margin-top: 5px;
+  cursor: pointer;
+  background: #000 ;
+  color: #fff;
+  font-size: 15px;
+
+}
+.note-box button[disabled] {
+  opacity: .2;
+  pointer-events: none;
+
+}
+ 
+
