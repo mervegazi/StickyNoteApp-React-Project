@@ -8,7 +8,7 @@ function App() {
 
   const screen=useRef(null) //dom işlemi yaptığımız için useref kullanarak bir değişken oluşturduk odaklanmasını da useEffect ile yaptık.
   const [mode, setMode]= useState(false) //yorum modunun açık kapalı bilgisini statete tutuyoruz.
-  const [notes, setNotes,]=useState(localStorage.notes && JSON.parse(localStorage.notes) || [] ) //notları json ile tuttuk sayfayı yenilediğimizde kaybolmayacaklar.
+  const [notes, setNotes]=useState(localStorage.notes && JSON.parse(localStorage.notes) || [] ) //notları json ile tuttuk sayfayı yenilediğimizde kaybolmayacaklar.
   const [position, setPosition]= useState({
     x: 0,
     y: 0
@@ -35,12 +35,15 @@ function App() {
       setBoxVisible(false) 
       
     }
+    if(e.key==='Escape'){
+      setBoxVisible(false)
+    }
   }
   const handleMauseMove= (e) => { //faremin konumunu state atadım 
     if(mode){   
     setPosition({
-      x: e.pageX,
-      y: e.pageY
+      x: [e.pageX, e.clientX],
+      y: [e.pageY, e.clientY],
     })
   }
 }
@@ -48,8 +51,8 @@ function App() {
     
     if(mode){
     setBoxPosition({
-      x: position.x,
-      y: position.y
+      x: position.x[0],
+      y: position.y[0],
     })
     setBoxVisible(true); //tıklayınca yorum kutusu açılsın
   }
@@ -61,7 +64,7 @@ const data={
   setMode,
   setNotes,
   setBoxVisible, 
-  notes
+  notes,
 }
 
   return (
@@ -72,7 +75,7 @@ const data={
      
      {mode &&<LeaveCommentText/>}
   
-      {notes && notes.map(note => <Note {...note}/>)}
+      {notes && notes.map((note, key) => <Note key={key} {...note}/>)}
       
       {boxVisible && <NoteBox/>}
 

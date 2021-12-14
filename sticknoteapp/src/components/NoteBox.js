@@ -1,5 +1,6 @@
-import { useContext, useState } from "react";
+import { useState,useContext} from "react";
 import MainContext from '../MainContext';
+
 
 function NoteBox() {
   
@@ -21,7 +22,7 @@ function NoteBox() {
             text: "Not"
         }
     ]
-    const {boxPosition, setBoxVisible, setMode, notes, setNotes}= useContext(MainContext) //maincontexteki datadan boxpositionu çektik
+    const {boxPosition, setBoxVisible, setMode, notes, setNotes}=useContext(MainContext) //maincontexteki datadan boxpositionu çektik
     const [color, setColor]= useState(types[0].color) //not renklerini statete tutuyoruz.
     const [note, setNote]=useState('') //notun girilip girilmediğini tutuyor ilk başta boş geliyor sonra textarea ya notlar girdikçe nu notları state te tutuyoruz.
 //not girildikçe ekle butonu aktif oluyor bunun kontrolünü de buton özelliklerinde ve css olarak verdik.
